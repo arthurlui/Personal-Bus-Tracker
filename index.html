@@ -139,6 +139,11 @@
     .route-tag.gmb5 { background: #34C75922; color: #248A3D; }
     .route-tag.r72  { background: #30B0C722; color: #1A8A9E; }
     .route-tag.gmb4c{ background: #5856D622; color: #4240B0; }
+    .route-tag.r592 { background: #FF2D5522; color: #D4234A; }
+    .route-tag.r76  { background: #007AFF22; color: #0064D2; }
+    .route-tag.r37a { background: #BF5AF222; color: #9A42C8; }
+    .route-tag.r38  { background: #FF375F22; color: #CC2D4C; }
+    .route-tag.r90  { background: #64D2FF22; color: #0E7FA8; }
 
     /* ── Section labels ─────────────────────────── */
     .feed-section { margin-bottom: 20px; }
@@ -363,6 +368,141 @@
       .hero-mins { font-size: 44px; }
       .container { padding: 20px 16px 28px; }
     }
+
+    @media (min-width: 600px) {
+      .route-cards.many { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ── Schedule tab ────────────────────────────── */
+    .sched-route-selector {
+      display: flex; gap: 2px; margin-bottom: 20px;
+      background: var(--fill); border-radius: 10px; padding: 3px;
+    }
+    .sched-route-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 9px 16px; border: none; border-radius: 8px;
+      background: transparent; font-family: inherit; font-size: 14px;
+      font-weight: 600; color: var(--text-secondary); cursor: pointer;
+      transition: all 0.25s ease; white-space: nowrap;
+    }
+    .sched-route-btn.active {
+      background: var(--card); color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .sched-route-btn:not(.active):hover { color: var(--text); }
+    .sched-route-btn .route-tag { font-size: 11px; padding: 2px 8px; }
+
+    .sched-route { margin-bottom: 28px; }
+
+    .sched-route-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .sched-route-header .route-name {
+      font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: -0.2px;
+    }
+
+    .sched-dir-toggle {
+      display: flex; gap: 2px; margin-bottom: 14px;
+      background: var(--fill); border-radius: 8px; padding: 2px;
+    }
+    .sched-dir-btn {
+      flex: 1; padding: 6px 14px; border: none; border-radius: 6px;
+      background: transparent; font-family: inherit; font-size: 13px;
+      font-weight: 500; color: var(--text-secondary); cursor: pointer;
+      transition: all 0.2s ease; white-space: nowrap;
+    }
+    .sched-dir-btn.active {
+      background: var(--card); color: var(--text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .sched-stops-card {
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+
+    .sched-stop { border-bottom: 0.5px solid var(--separator); }
+    .sched-stop:last-child { border-bottom: none; }
+
+    .sched-stop-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 18px; cursor: pointer; user-select: none;
+      transition: background 0.15s ease;
+    }
+    .sched-stop-header:hover { background: var(--fill); }
+    .sched-stop-header:active { background: #e8e8ed; }
+
+    .sched-stop-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--separator); flex-shrink: 0;
+    }
+    .sched-stop.first-stop .sched-stop-dot,
+    .sched-stop.last-stop .sched-stop-dot {
+      background: var(--text-secondary); width: 9px; height: 9px;
+    }
+
+    .sched-stop-info { flex: 1; min-width: 0; }
+    .sched-stop-en {
+      font-size: 14px; font-weight: 400; color: var(--text); line-height: 1.3;
+    }
+    .sched-stop-tc {
+      font-size: 12px; color: var(--text-tertiary); line-height: 1.3;
+    }
+
+    .sched-chevron {
+      font-size: 11px; color: var(--text-tertiary);
+      transition: transform 0.25s ease; flex-shrink: 0;
+    }
+    .sched-chevron.open { transform: rotate(90deg); }
+
+    .sched-stop-etas {
+      display: none; padding: 0 18px 14px 38px;
+    }
+    .sched-stop-etas.show { display: block; }
+
+    .sched-eta-list {
+      background: var(--fill); border-radius: 10px; padding: 4px 0;
+    }
+
+    .sched-eta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 14px;
+    }
+    .sched-eta-row:not(:last-child) {
+      border-bottom: 0.5px solid var(--separator);
+    }
+
+    .sched-eta-ord {
+      font-size: 12px; font-weight: 500; color: var(--text-secondary);
+      min-width: 40px;
+    }
+    .sched-eta-mins {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      font-feature-settings: 'tnum'; flex: 1; text-align: center;
+    }
+    .sched-eta-mins.arriving { color: var(--green); }
+    .sched-eta-mins-unit {
+      font-size: 11px; font-weight: 500; color: var(--text-secondary);
+    }
+    .sched-eta-time {
+      font-size: 13px; color: var(--text-tertiary);
+      font-feature-settings: 'tnum';
+    }
+
+    .sched-no-service {
+      font-size: 13px; color: var(--text-tertiary); font-style: italic;
+      text-align: center; padding: 12px 14px;
+    }
+
+    .sched-spinner-wrap {
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 14px;
+    }
+    .sched-spinner-sm {
+      width: 18px; height: 18px;
+      border: 2px solid var(--separator); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
   </style>
 </head>
 <body>
@@ -381,6 +521,7 @@
       <div class="seg-control">
         <button class="seg-btn active" id="segHome" onclick="switchMode('home')">From Home</button>
         <button class="seg-btn" id="segWork" onclick="switchMode('work')">From Work</button>
+        <button class="seg-btn" id="segSchedules" onclick="switchMode('schedules')">Schedules</button>
       </div>
     </div>
 
@@ -401,6 +542,41 @@
         <span class="chevron" id="chevron">&#9654;</span> <span id="routeStopsLabel">Route 1 Stops</span>
       </div>
       <div class="route-stops collapsed" id="routeStops"></div>
+    </div>
+
+    <div id="schedulesContent" style="display:none">
+      <div class="sched-route-selector">
+        <button class="sched-route-btn active" id="schedSelR1" onclick="switchSchedRoute('1',this)">
+          <span class="route-tag r1">1</span> Route 1
+        </button>
+        <button class="sched-route-btn" id="schedSelR1M" onclick="switchSchedRoute('1M',this)">
+          <span class="route-tag r1m">1M</span> Route 1M
+        </button>
+      </div>
+
+      <div class="sched-route" id="schedRoute1">
+        <div class="sched-route-header">
+          <span class="route-tag r1">1</span>
+          <span class="route-name">Happy Valley ↔ Central</span>
+        </div>
+        <div class="sched-dir-toggle" id="schedDirToggle1">
+          <button class="sched-dir-btn active" onclick="switchSchedDir('1','I',this)">Inbound → Central</button>
+          <button class="sched-dir-btn" onclick="switchSchedDir('1','O',this)">Outbound → Happy Valley</button>
+        </div>
+        <div class="sched-stops-card" id="sched-r1-stops"></div>
+      </div>
+
+      <div class="sched-route" id="schedRoute1M" style="display:none">
+        <div class="sched-route-header">
+          <span class="route-tag r1m">1M</span>
+          <span class="route-name">WNC Gap ↔ Exhibition Centre</span>
+        </div>
+        <div class="sched-dir-toggle" id="schedDirToggle1M">
+          <button class="sched-dir-btn active" onclick="switchSchedDir('1M','I',this)">Inbound → Exhibition Centre</button>
+          <button class="sched-dir-btn" onclick="switchSchedDir('1M','O',this)">Outbound → WNC Gap</button>
+        </div>
+        <div class="sched-stops-card" id="sched-r1m-stops"></div>
+      </div>
     </div>
 
     <footer>
@@ -468,7 +644,7 @@
         locationText: 'Near Viva Place, 36 Heung Yip Road, Wong Chuk Hang',
         stopName: 'Wong Chuk Hang Road No. 23',
         stopNameCn: '黃竹坑道23號',
-        stopNote: 'Route 72 boards from WCH Recreation Ground (~3 min walk)',
+        stopNote: 'Citybus routes board from WCH Recreation Ground (~3 min walk)',
         routeStopsLabel: 'Route 5 Stops',
         routes: [
           {
@@ -488,6 +664,31 @@
             dest: 'Causeway Bay (Cannon St)',
             note: 'Every 5 min \u2014 alight CWB, 15 min walk',
             fetchUrl: `${GMB_API}/eta/route-stop/2004097/1/4`
+          },
+          {
+            id: 'r592', label: '592', type: 'bus', cls: 'r592',
+            dest: 'Causeway Bay (Moreton Terrace)', dir: 'O',
+            fetchUrl: `${CTB_API}/eta/CTB/002345/592`
+          },
+          {
+            id: 'r76', label: '76', type: 'bus', cls: 'r76',
+            dest: 'Causeway Bay (Pennington St)', dir: 'O',
+            fetchUrl: `${CTB_API}/eta/CTB/002345/76`
+          },
+          {
+            id: 'r37a', label: '37A', type: 'bus', cls: 'r37a',
+            dest: 'Central', dir: 'O',
+            fetchUrl: `${CTB_API}/eta/CTB/002345/37A`
+          },
+          {
+            id: 'r38', label: '38', type: 'bus', cls: 'r38',
+            dest: 'North Point Ferry Pier', dir: 'O',
+            fetchUrl: `${CTB_API}/eta/CTB/002345/38`
+          },
+          {
+            id: 'r90', label: '90', type: 'bus', cls: 'r90',
+            dest: 'Central (Exchange Square)', dir: 'O',
+            fetchUrl: `${CTB_API}/eta/CTB/002345/90`
           }
         ],
         stops: [
@@ -509,6 +710,103 @@
         ]
       }
     };
+
+    // ── Schedule stop data ─────────────────────────────────────
+    const SCHED = {
+      '1': {
+        I: [
+          { id: '002403', en: 'Happy Valley (Upper)', tc: '跑馬地 (上)' },
+          { id: '002402', en: 'Green Lane, Blue Pool Road', tc: '箕璉坊, 藍塘道' },
+          { id: '002492', en: 'Kwai Fong Street, Sing Woo Road', tc: '桂芳街, 成和道' },
+          { id: '002493', en: 'Village Road, Sing Woo Road', tc: '山村道, 成和道' },
+          { id: '002453', en: 'King Kwong Street', tc: '景光街' },
+          { id: '002552', en: 'HK Sanatorium & Hospital, Wong Nai Chung Rd', tc: '養和醫院, 黃泥涌道' },
+          { id: '002553', en: 'Happy Valley Racecourse, Wong Nai Chung Rd', tc: '跑馬地馬場, 黃泥涌道' },
+          { id: '002467', en: 'Lap Tak Lane, Morrison Hill Road', tc: '立德里, 摩理臣山道' },
+          { id: '002566', en: 'The Charterhouse, Wan Chai Road', tc: '利景酒店, 灣仔道' },
+          { id: '002537', en: 'Bullock Lane, Wan Chai Road', tc: '普樂里, 灣仔道' },
+          { id: '002446', en: 'Southorn Playground, Hennessy Road', tc: '修頓球場, 軒尼詩道' },
+          { id: '002449', en: 'Anton Street, Hennessy Road', tc: '晏頓街, 軒尼詩道' },
+          { id: '001140', en: 'Admiralty - Pacific Place, Queensway', tc: '金鐘 - 太古廣場, 金鐘道' },
+          { id: '001142', en: 'Bank of China Tower, Queensway', tc: '中銀大廈, 金鐘道' },
+          { id: '001054', en: 'The Landmark, Des Voeux Road Central', tc: '置地廣場, 德輔道中' },
+          { id: '001056', en: 'Central Market, Des Voeux Road Central', tc: '中環街市, 德輔道中' },
+          { id: '001175', en: 'Cleverly Street, Des Voeux Road Central', tc: '急庇利街, 德輔道中' },
+          { id: '001027', en: 'Central (Macao Ferry)', tc: '中環 (港澳碼頭)' },
+        ],
+        O: [
+          { id: '001027', en: 'Central (Macao Ferry)', tc: '中環 (港澳碼頭)' },
+          { id: '001044', en: 'Rumsey Street, Des Voeux Road Central', tc: '林士街, 德輔道中' },
+          { id: '001173', en: 'Hang Seng Bank HQ, Des Voeux Road Central', tc: '恒生銀行總行大廈, 德輔道中' },
+          { id: '001049', en: 'Douglas Street, Des Voeux Road Central', tc: '德忌利士街, 德輔道中' },
+          { id: '001050', en: 'Alexandra House, Des Voeux Road Central', tc: '歷山大廈, 德輔道中' },
+          { id: '001052', en: 'Chater Garden, Des Voeux Road Central', tc: '遮打花園, 德輔道中' },
+          { id: '001025', en: 'Statue Square, Chater Road', tc: '皇后像廣場, 遮打道' },
+          { id: '003845', en: 'Admiralty - Queensway Plaza, Queensway', tc: '金鐘 - 金鐘廊, 金鐘道' },
+          { id: '002427', en: 'Arsenal Street, Hennessy Road', tc: '軍器廠街, 軒尼詩道' },
+          { id: '002431', en: "O'Brien Road, Hennessy Road", tc: '柯布連道, 軒尼詩道' },
+          { id: '002412', en: 'Thomson Road, Fleming Road', tc: '譚臣道, 菲林明道' },
+          { id: '002539', en: 'Heard Street, Wan Chai Road', tc: '克街, 灣仔道' },
+          { id: '002540', en: 'Tin Lok Lane, Wan Chai Road', tc: '天樂里, 灣仔道' },
+          { id: '002548', en: 'Broadwood Road, Wong Nai Chung Road', tc: '樂活道, 黃泥涌道' },
+          { id: '002549', en: 'Amigo Mansion, Wong Nai Chung Road', tc: '雅谷大廈, 黃泥涌道' },
+          { id: '002550', en: 'Happy Valley (Lower)', tc: '跑馬地 (下)' },
+          { id: '002490', en: 'Yik Yam Street, Sing Woo Road', tc: '奕蔭街, 成和道' },
+          { id: '002491', en: 'Shing Ping Mansion, Sing Woo Road', tc: '昇平樓, 成和道' },
+          { id: '002560', en: 'Green Lane', tc: '箕璉坊' },
+          { id: '002403', en: 'Happy Valley (Upper)', tc: '跑馬地 (上)' },
+        ]
+      },
+      '1M': {
+        I: [
+          { id: '002543', en: 'Wong Nai Chung Reservoir Park', tc: '黃泥涌水塘公園' },
+          { id: '002544', en: 'Tai Tam Reservoir Road, WNC Gap Road', tc: '大潭水塘道, 黃泥涌峽道' },
+          { id: '002545', en: 'Hong Kong Tennis Centre, WNC Gap Road', tc: '香港網球中心, 黃泥涌峽道' },
+          { id: '002546', en: 'Woodland Heights, WNC Gap Road', tc: '怡園, 黃泥涌峽道' },
+          { id: '002960', en: 'Green Lane Court, Blue Pool Road', tc: '箕璉閣, 藍塘道' },
+          { id: '002961', en: 'Envoy Garden, Blue Pool Road', tc: '安慧苑, 藍塘道' },
+          { id: '002402', en: 'Green Lane, Blue Pool Road', tc: '箕璉坊, 藍塘道' },
+          { id: '002492', en: 'Kwai Fong Street, Sing Woo Road', tc: '桂芳街, 成和道' },
+          { id: '002493', en: 'Village Road, Sing Woo Road', tc: '山村道, 成和道' },
+          { id: '002453', en: 'King Kwong Street', tc: '景光街' },
+          { id: '002552', en: 'HK Sanatorium & Hospital, Wong Nai Chung Rd', tc: '養和醫院, 黃泥涌道' },
+          { id: '002553', en: 'Happy Valley Racecourse, Wong Nai Chung Rd', tc: '跑馬地馬場, 黃泥涌道' },
+          { id: '002467', en: 'Lap Tak Lane, Morrison Hill Road', tc: '立德里, 摩理臣山道' },
+          { id: '002566', en: 'The Charterhouse, Wan Chai Road', tc: '利景酒店, 灣仔道' },
+          { id: '002537', en: 'Bullock Lane, Wan Chai Road', tc: '普樂里, 灣仔道' },
+          { id: '002445', en: 'Fleming Road, Hennessy Road', tc: '菲林明道, 軒尼詩道' },
+          { id: '001138', en: 'Admiralty - MTR Exit D', tc: '金鐘 - 港鐵 D 出口' },
+          { id: '003415', en: 'Exhibition Centre Station', tc: '會展站' },
+        ],
+        O: [
+          { id: '001138', en: 'Admiralty - MTR Exit D', tc: '金鐘 - 港鐵 D 出口' },
+          { id: '002427', en: 'Arsenal Street, Hennessy Road', tc: '軍器廠街, 軒尼詩道' },
+          { id: '002431', en: "O'Brien Road, Hennessy Road", tc: '柯布連道, 軒尼詩道' },
+          { id: '003415', en: 'Exhibition Centre Station', tc: '會展站' },
+          { id: '002412', en: 'Thomson Road, Fleming Road', tc: '譚臣道, 菲林明道' },
+          { id: '002539', en: 'Heard Street, Wan Chai Road', tc: '克街, 灣仔道' },
+          { id: '002540', en: 'Tin Lok Lane, Wan Chai Road', tc: '天樂里, 灣仔道' },
+          { id: '002968', en: 'South Pacific Hotel, Morrison Hill Road', tc: '南洋酒店, 摩理臣山道' },
+          { id: '002548', en: 'Broadwood Road, Wong Nai Chung Road', tc: '樂活道, 黃泥涌道' },
+          { id: '002549', en: 'Amigo Mansion, Wong Nai Chung Road', tc: '雅谷大廈, 黃泥涌道' },
+          { id: '002550', en: 'Happy Valley (Lower)', tc: '跑馬地 (下)' },
+          { id: '002490', en: 'Yik Yam Street, Sing Woo Road', tc: '奕蔭街, 成和道' },
+          { id: '002491', en: 'Shing Ping Mansion, Sing Woo Road', tc: '昇平樓, 成和道' },
+          { id: '002957', en: 'Green Lane, Blue Pool Road', tc: '箕璉坊, 藍塘道' },
+          { id: '002958', en: 'Villa Dorada, Blue Pool Road', tc: '金碧別墅, 藍塘道' },
+          { id: '002959', en: 'Billion Terrace, Blue Pool Road', tc: '千葉居, 藍塘道' },
+          { id: '002541', en: 'Tai Hang Road, Wong Nai Chung Gap Road', tc: '大坑道, 黃泥涌峽道' },
+          { id: '002542', en: 'Hong Kong Tennis Centre, WNC Gap Road', tc: '香港網球中心, 黃泥涌峽道' },
+          { id: '002543', en: 'Wong Nai Chung Reservoir Park', tc: '黃泥涌水塘公園' },
+          { id: '002544', en: 'Tai Tam Reservoir Road, WNC Gap Road', tc: '大潭水塘道, 黃泥涌峽道' },
+        ]
+      }
+    };
+
+    // Track current direction per schedule route
+    const schedDirs = { '1': 'I', '1M': 'I' };
+    // Track ETA refresh timers for expanded stops
+    const schedTimers = {};
 
     // ── State ──────────────────────────────────────────────────
     let currentMode = 'home';
@@ -660,6 +958,7 @@
       const mode = MODES[currentMode];
       document.getElementById('routeCardsSection').style.display = '';
       const el = document.getElementById('routeCards');
+      el.className = mode.routes.length > 4 ? 'route-cards many' : 'route-cards';
       let html = '';
 
       for (const route of mode.routes) {
@@ -724,6 +1023,142 @@
       document.getElementById('chevron').classList.toggle('open');
     }
 
+    // ── Schedule functions ────────────────────────────────────
+    function renderSchedStops(route, dir) {
+      const stops = SCHED[route][dir];
+      const containerId = route === '1' ? 'sched-r1-stops' : 'sched-r1m-stops';
+      const el = document.getElementById(containerId);
+
+      // Clear any active timers for this route
+      Object.keys(schedTimers).forEach(key => {
+        if (key.startsWith(route + '-')) {
+          clearInterval(schedTimers[key]);
+          delete schedTimers[key];
+        }
+      });
+
+      el.innerHTML = stops.map((stop, i) => {
+        const isFirst = i === 0;
+        const isLast = i === stops.length - 1;
+        let cls = 'sched-stop';
+        if (isFirst) cls += ' first-stop';
+        if (isLast) cls += ' last-stop';
+        return `
+          <div class="${cls}" id="sched-${route}-${dir}-${stop.id}">
+            <div class="sched-stop-header" onclick="toggleSchedStop('${stop.id}','${route}','${dir}')">
+              <div class="sched-stop-dot"></div>
+              <div class="sched-stop-info">
+                <div class="sched-stop-en">${stop.en}</div>
+                <div class="sched-stop-tc">${stop.tc}</div>
+              </div>
+              <span class="sched-chevron" id="schev-${route}-${dir}-${stop.id}">&#9654;</span>
+            </div>
+            <div class="sched-stop-etas" id="setas-${route}-${dir}-${stop.id}"></div>
+          </div>`;
+      }).join('');
+    }
+
+    function renderSchedules() {
+      renderSchedStops('1', schedDirs['1']);
+      renderSchedStops('1M', schedDirs['1M']);
+    }
+
+    function switchSchedDir(route, dir, btn) {
+      schedDirs[route] = dir;
+      // Update toggle buttons
+      const toggle = btn.parentElement;
+      toggle.querySelectorAll('.sched-dir-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSchedStops(route, dir);
+    }
+
+    async function fetchStopETA(stopId, route, dir) {
+      const url = `${CTB_API}/eta/CTB/${stopId}/${route}`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const json = await res.json();
+      const dirCode = dir === 'I' ? 'I' : 'O';
+      return json.data
+        .filter(d => d.dir === dirCode && d.eta)
+        .map(d => ({
+          eta: d.eta,
+          mins: minsUntil(d.eta),
+          remark: d.rmk_en || ''
+        }))
+        .filter(d => d.mins >= -1)
+        .slice(0, 3);
+    }
+
+    function renderStopETAs(stopId, route, dir, etas) {
+      const el = document.getElementById(`setas-${route}-${dir}-${stopId}`);
+      if (!el) return;
+
+      if (etas.length === 0) {
+        el.innerHTML = `<div class="sched-eta-list"><div class="sched-no-service">No service now</div></div>`;
+        return;
+      }
+
+      const labels = ['Next', '2nd', '3rd'];
+      el.innerHTML = `<div class="sched-eta-list">${etas.map((e, i) => {
+        const d = minsDisplay(e.mins);
+        return `
+          <div class="sched-eta-row">
+            <span class="sched-eta-ord">${labels[i] || ''}</span>
+            <span class="sched-eta-mins ${d.arriving ? 'arriving' : ''}">${d.text} <span class="sched-eta-mins-unit">${d.arriving && d.text === 'Now' ? '' : 'min'}</span></span>
+            <span class="sched-eta-time">${fmtTime(e.eta)}</span>
+          </div>`;
+      }).join('')}</div>`;
+    }
+
+    async function toggleSchedStop(stopId, route, dir) {
+      const etaEl = document.getElementById(`setas-${route}-${dir}-${stopId}`);
+      const chevEl = document.getElementById(`schev-${route}-${dir}-${stopId}`);
+      const timerKey = `${route}-${dir}-${stopId}`;
+
+      if (etaEl.classList.contains('show')) {
+        // Collapse
+        etaEl.classList.remove('show');
+        chevEl.classList.remove('open');
+        if (schedTimers[timerKey]) {
+          clearInterval(schedTimers[timerKey]);
+          delete schedTimers[timerKey];
+        }
+        return;
+      }
+
+      // Expand
+      etaEl.classList.add('show');
+      chevEl.classList.add('open');
+
+      // Show spinner
+      etaEl.innerHTML = `<div class="sched-spinner-wrap"><div class="sched-spinner-sm"></div></div>`;
+
+      // Fetch and render
+      try {
+        const etas = await fetchStopETA(stopId, route, dir);
+        renderStopETAs(stopId, route, dir, etas);
+      } catch (err) {
+        etaEl.innerHTML = `<div class="sched-eta-list"><div class="sched-no-service">Unable to load</div></div>`;
+      }
+
+      // Auto-refresh every 30s
+      schedTimers[timerKey] = setInterval(async () => {
+        try {
+          const etas = await fetchStopETA(stopId, route, dir);
+          if (etaEl.classList.contains('show')) {
+            renderStopETAs(stopId, route, dir, etas);
+          }
+        } catch (err) { /* silent */ }
+      }, 30000);
+    }
+
+    function clearAllSchedTimers() {
+      Object.keys(schedTimers).forEach(key => {
+        clearInterval(schedTimers[key]);
+        delete schedTimers[key];
+      });
+    }
+
     function updateStatus(ok, msg) {
       document.getElementById('statusDot').className = ok ? 'status-dot' : 'status-dot error';
       document.getElementById('statusText').textContent = msg;
@@ -732,27 +1167,50 @@
     // ── Mode switching ─────────────────────────────────────────
     function switchMode(mode) {
       currentMode = mode;
+      const isSchedule = mode === 'schedules';
 
+      // Update all 3 button states
       document.getElementById('segHome').className = mode === 'home' ? 'seg-btn active' : 'seg-btn';
       document.getElementById('segWork').className = mode === 'work' ? 'seg-btn active' : 'seg-btn';
-      document.getElementById('headerLocation').textContent = MODES[mode].locationText;
+      document.getElementById('segSchedules').className = mode === 'schedules' ? 'seg-btn active' : 'seg-btn';
 
-      // Collapse stops on switch
-      document.getElementById('routeStops').classList.add('collapsed');
-      document.getElementById('chevron').classList.remove('open');
+      // Show/hide sections
+      document.getElementById('schedulesContent').style.display = isSchedule ? '' : 'none';
+      document.getElementById('mainContent').style.display = isSchedule ? 'none' : '';
+      document.getElementById('routeCardsSection').style.display = isSchedule ? 'none' : '';
+      document.getElementById('routeStopsSection').style.display = isSchedule ? 'none' : '';
 
-      // Show loading
-      document.getElementById('mainContent').innerHTML = `
-        <div class="loading"><div class="spinner"></div>
-        <div class="loading-text">Fetching live data...</div></div>`;
-      document.getElementById('routeCardsSection').style.display = 'none';
+      if (isSchedule) {
+        // Stop live feed timer
+        if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+        document.getElementById('headerLocation').textContent = 'Full Route Schedules';
+        renderSchedules();
+        updateStatus(true, 'Tap a stop to see live ETAs');
+      } else {
+        // Clear schedule timers
+        clearAllSchedTimers();
 
-      renderRouteStops();
-      refresh();
+        document.getElementById('headerLocation').textContent = MODES[mode].locationText;
 
-      // Reset timer
-      if (refreshTimer) clearInterval(refreshTimer);
-      refreshTimer = setInterval(refresh, 30000);
+        // Collapse stops on switch
+        document.getElementById('routeStops').classList.add('collapsed');
+        document.getElementById('chevron').classList.remove('open');
+
+        // Show loading
+        document.getElementById('mainContent').style.display = '';
+        document.getElementById('mainContent').innerHTML = `
+          <div class="loading"><div class="spinner"></div>
+          <div class="loading-text">Fetching live data...</div></div>`;
+        document.getElementById('routeCardsSection').style.display = 'none';
+        document.getElementById('routeStopsSection').style.display = '';
+
+        renderRouteStops();
+        refresh();
+
+        // Reset timer
+        if (refreshTimer) clearInterval(refreshTimer);
+        refreshTimer = setInterval(refresh, 30000);
+      }
     }
 
     // ── Main loop ──────────────────────────────────────────────
