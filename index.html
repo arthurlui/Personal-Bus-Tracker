@@ -440,10 +440,20 @@
     .sched-stop.last-stop .sched-stop-dot {
       background: var(--text-secondary); width: 9px; height: 9px;
     }
+    .sched-stop.highlight-stop .sched-stop-dot {
+      background: var(--accent); width: 10px; height: 10px;
+      box-shadow: 0 0 0 4px #007AFF20;
+    }
 
     .sched-stop-info { flex: 1; min-width: 0; }
     .sched-stop-en {
       font-size: 14px; font-weight: 400; color: var(--text); line-height: 1.3;
+    }
+    .sched-stop.highlight-stop .sched-stop-en {
+      color: var(--accent); font-weight: 600;
+    }
+    .sched-stop-emoji {
+      font-size: 14px; margin-left: 5px; vertical-align: middle;
     }
     .sched-stop-tc {
       font-size: 12px; color: var(--text-tertiary); line-height: 1.3;
@@ -805,8 +815,16 @@
 
     // Track current direction per schedule route
     const schedDirs = { '1': 'I', '1M': 'I' };
+    // Track which schedule route is visible
+    let currentSchedRoute = '1';
     // Track ETA refresh timers for expanded stops
     const schedTimers = {};
+
+    // Stops to highlight per route/direction: stopId → emoji
+    const SCHED_HIGHLIGHTS = {
+      '1':  { I: { '002467': '👧' }, O: { '002540': '👧', '001049': '👦' } },
+      '1M': { I: { '002467': '👧' }, O: { '002540': '👧' } }
+    };
 
     // ── State ──────────────────────────────────────────────────
     let currentMode = 'home';
@@ -1037,18 +1055,21 @@
         }
       });
 
+      const highlights = (SCHED_HIGHLIGHTS[route] && SCHED_HIGHLIGHTS[route][dir]) || {};
       el.innerHTML = stops.map((stop, i) => {
         const isFirst = i === 0;
         const isLast = i === stops.length - 1;
+        const emoji = highlights[stop.id] || null;
         let cls = 'sched-stop';
         if (isFirst) cls += ' first-stop';
         if (isLast) cls += ' last-stop';
+        if (emoji) cls += ' highlight-stop';
         return `
           <div class="${cls}" id="sched-${route}-${dir}-${stop.id}">
             <div class="sched-stop-header" onclick="toggleSchedStop('${stop.id}','${route}','${dir}')">
               <div class="sched-stop-dot"></div>
               <div class="sched-stop-info">
-                <div class="sched-stop-en">${stop.en}</div>
+                <div class="sched-stop-en">${stop.en}${emoji ? `<span class="sched-stop-emoji">${emoji}</span>` : ''}</div>
                 <div class="sched-stop-tc">${stop.tc}</div>
               </div>
               <span class="sched-chevron" id="schev-${route}-${dir}-${stop.id}">&#9654;</span>
@@ -1059,8 +1080,21 @@
     }
 
     function renderSchedules() {
-      renderSchedStops('1', schedDirs['1']);
-      renderSchedStops('1M', schedDirs['1M']);
+      // Show only the active route
+      document.getElementById('schedRoute1').style.display = currentSchedRoute === '1' ? '' : 'none';
+      document.getElementById('schedRoute1M').style.display = currentSchedRoute === '1M' ? '' : 'none';
+      renderSchedStops(currentSchedRoute, schedDirs[currentSchedRoute]);
+    }
+
+    function switchSchedRoute(route, btn) {
+      if (route === currentSchedRoute) return;
+      // Clear timers from previous route
+      clearAllSchedTimers();
+      currentSchedRoute = route;
+      // Update selector buttons
+      document.getElementById('schedSelR1').className = route === '1' ? 'sched-route-btn active' : 'sched-route-btn';
+      document.getElementById('schedSelR1M').className = route === '1M' ? 'sched-route-btn active' : 'sched-route-btn';
+      renderSchedules();
     }
 
     function switchSchedDir(route, dir, btn) {
